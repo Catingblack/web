@@ -5,6 +5,7 @@ if [[ -f /etc/nginx/sites-enabled/default ]]; then
 	sudo rm /etc/nginx/sites-enabled/default
 	sudo chown -R www-data:www-data /home/box/web
 	sudo chmod -R 755 /home/box/web/
+fi
 	
 
 sudo ln -sf /home/box/web/etc/nginx.conf  /etc/nginx/sites-enabled/test.conf
