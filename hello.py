@@ -15,4 +15,4 @@ def app(environ, start_response):
         body + str + '\n'
        
     start_response(status, headers)
-    return [ body ]
+    return iter([ body.encode("utf-8") ])
