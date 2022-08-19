@@ -16,4 +16,4 @@ sudo chmod -R 755 /etc/nginx/
 sudo /etc/init.d/nginx restart
 
 	
-sudo gunicorn -b 0.0.0.0:8080 hello:app
+sudo gunicorn -b 0.0.0.0:8080 hello:app --daemon
