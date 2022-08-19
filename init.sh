@@ -16,7 +16,4 @@ sudo chmod -R 755 /etc/nginx/
 sudo /etc/init.d/nginx restart
 
 	
-sudo ln -sf /home/box/web/etc/gunicorn.conf.py   /etc/gunicorn.d/test
-sudo chown -R www-data:www-data /etc/gunicorn.d
-sudo chmod -R 755 /etc/gunicorn.d/
-sudo /etc/init.d/gunicorn restart
+sudo gunicorn -b 0.0.0.0:8080 hello:app

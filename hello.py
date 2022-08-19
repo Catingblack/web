@@ -10,9 +10,10 @@ def app(environ, start_response):
     args = q_str.split('&')
     
     body = ''
+    body = body + "Hello"
     
     for str in args:
-        body + str + '\n'
+        body = body + str + '\n'
        
     start_response(status, headers)
     return iter([ body.encode("utf-8") ])
