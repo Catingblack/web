@@ -20,4 +20,4 @@ sudo ln -sf /home/box/web/etc/gunicorn_ask.py  /etc/gunicorn.d/gunicorn_ask.py
 
 sudo gunicorn /etc/init.d/gunicorn restart
 
-sudo gunicorn --c gunicorn_hello.py hello:app && --c gunicorn_ask.py wsgi:application 
+sudo gunicorn --config /etc/gunicorn.d/gunicorn_hello.py hello:app && --config /etc/gunicorn.d/gunicorn_ask.py wsgi:application 
