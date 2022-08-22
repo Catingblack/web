@@ -1,6 +1,7 @@
 sudo apt update
 sudo apt install python3.5 -y
 sudo apt install python3.5-dev -y
+sudo apt install mysql-server-5.6
 
 
 sudo rm /usr/bin/python3                         
