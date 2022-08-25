@@ -5,7 +5,6 @@ from . import views
 urlpatterns = [
     path('', views.new, name='new'),
     path('popular/', views.popular, name='popular'),
-    path('new/', views.new, name='new'),
     path('question/<int:id>/', views.question_details, name='question'),
     
     #path('login/', include('qa.urls')),
