@@ -7,15 +7,15 @@ from qa.models import *
 
 
 def paginate(request, qs):
-     try: 
-        page = int(request.GET.get('page', 1))
-     except ValueError:
-        raise Http404
+    try: 
+       page = int(request.GET.get('page', 1))
+    except ValueError:
+       raise Http404
     paginator = Paginator(qs, 10)
     try: 
-        page = paginator.page(page)
+       page = paginator.page(page)
     except EmptyPage:
-        page = paginator.page(paginator.num_pages)
+       page = paginator.page(paginator.num_pages)
     return page, paginator
         
         
