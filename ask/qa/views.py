@@ -52,9 +52,12 @@ def popular(request):
 @require_GET
 def question_details(request, id):
     question = get_object_or_404(Question, id=id)
+    answers = question.answer_set.all()
+    
 
     return render(request, 'qa/question_details.html',  {
         'question': question,
+        'answers': answers,
         'id': id,    
     })
 
