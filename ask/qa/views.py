@@ -29,7 +29,6 @@ def new(request):
     paginator.baseurl = reverse('new') + '?page='
     
     return render(request, 'qa/new.html',  {
-        
         'questions': page.object_list,
         'paginator': paginator,
         'page': page,    
