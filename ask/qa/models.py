@@ -3,10 +3,10 @@ from django.contrib.auth.models import User
 
 class QuestionManager(models.Manager):
     def new(self):
-        return self.order_by('-added_at')
+        return self.order_by('-added_at')[:10]
     
     def popular(self):
-        return self.order_by('-rating')
+        return self.order_by('-rating')[:10]
 
 class Question(models.Model):
     title = models.CharField(max_length=255)

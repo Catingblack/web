@@ -1,0 +1,11 @@
+{% extend "qa/base.html"%}
+
+
+{% block content %}
+	<div>	
+		{% for question in questions %}
+			<a href="/question/{{question.id}}/">{{question.title}}</a>
+		{% endfor %}
+	</div>
+	{% include "qa/pagination.html" %}
+{% endblock %}

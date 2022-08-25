@@ -1,0 +1,19 @@
+{% extend "qa/base.html"%}
+
+{% block title %}{{question.title}}{% endblock %}
+
+{% block header %}{{question.title}}{% endblock %}
+
+{% block content %}
+<div>
+	<p>{{question.text}}</p>
+	<p>От кого: {{quetsion.author}}</p>
+	<p>Дата добавления: {{quetsion.added_at}}</p>
+</div>
+
+<div>
+	<h1>Ответы</h1>
+</div>
+
+
+{% endblock %}
