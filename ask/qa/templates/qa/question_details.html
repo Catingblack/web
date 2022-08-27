@@ -12,6 +12,25 @@
 </div>
 
 <div>
+    <h1>Ваш ответ:</h1>
+    {% for e in form.non_field_errors %}
+      <div class="alert">{{ e }}</div>
+    {% endfor %}
+    <div class="form">
+      <form method="post" action="/question/{{question.pk}}/">
+        {% csrf_token %}
+          {% for field in form %}
+             <div class="form-field"{% if field.errors %} alert{% endif %}>
+               {{ field }}
+               {{ field.errors }}
+             </div>
+          {% endfor %}
+        <button type="submit" class="btn">Отправить</button>
+      </form>
+    </div>
+</div>>
+
+<div>
 	<h1>Ответы</h1>
 	{% for answer in answers %}
       <div class="answer">

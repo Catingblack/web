@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.decorators.http import require_GET
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage
+from qa.forms import *
 from qa.models import *
+
+#@require_GET
 
 
 def paginate(request, qs):
@@ -17,11 +20,8 @@ def paginate(request, qs):
     except EmptyPage:
        page = paginator.page(paginator.num_pages)
     return page, paginator
-        
-        
-        
 
-@require_GET
+
 def new(request):
     qs = Question.objects.new()
     
@@ -35,7 +35,6 @@ def new(request):
     })
    
    
-@require_GET
 def popular(request):
     qs = Question.objects.popular()
     
@@ -49,15 +48,38 @@ def popular(request):
     })
     
 
-@require_GET
 def question_details(request, id):
     question = get_object_or_404(Question, id=id)
     answers = question.answer_set.all()
-    
+
+    if request.method == 'POST':
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save()
+            url = question.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AnswerForm(initial={'question': str(id)})
 
     return render(request, 'qa/question_details.html',  {
         'question': question,
         'answers': answers,
+        'form': form,
         'id': id,    
+    })
+
+
+def ask_question(request):
+    if request.method == 'POST':
+        form = AskForm(request.POST)
+        if form.is_valid():
+            question = form.save()
+            url = question.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AskForm()
+
+    return render(request, 'qa/create_question.html', {
+        'form': form,
     })
 
