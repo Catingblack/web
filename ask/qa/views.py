@@ -3,6 +3,7 @@ from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.views.decorators.http import require_GET
 from django.urls import reverse
 from django.core.paginator import Paginator, EmptyPage
+from django.contrib.auth import login, logout
 from qa.forms import *
 from qa.models import *
 
@@ -55,6 +56,7 @@ def question_details(request, id):
     if request.method == 'POST':
         form = AnswerForm(request.POST)
         if form.is_valid():
+            form._user = request.user
             answer = form.save()
             url = question.get_url()
             return HttpResponseRedirect(url)
@@ -73,6 +75,7 @@ def ask_question(request):
     if request.method == 'POST':
         form = AskForm(request.POST)
         if form.is_valid():
+            form._user = request.user
             question = form.save()
             url = question.get_url()
             return HttpResponseRedirect(url)
@@ -83,3 +86,42 @@ def ask_question(request):
         'form': form,
     })
 
+
+def user_signup(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            if user is not None:
+                login(request, user)
+                url = reverse('new')
+                return HttpResponseRedirect(url)
+    else:
+        form = SignUpForm()
+
+    return render(request, 'qa/signup.html', {
+        'form': form,
+    })
+
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            if user is not None:
+                login(request, user)
+                url = reverse('new')
+                return HttpResponseRedirect(url)
+    else:
+        form = LoginForm()
+
+    return render(request, 'qa/login.html', {
+        'form': form,
+    })
+
+
+def user_logout(request):
+    logout(request)
+    url = reverse('login')
+    return HttpResponseRedirect(url)
